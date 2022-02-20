@@ -35,13 +35,16 @@ async def get_data(message):
         date = re.search(r'[^date:]\d+\.\d+\.\d+:.+',
                          message.text).group().strip()
         text = re.search(r'text:.+', message.text).group().split('text:')[1].strip()
+        # Not required parameter
+        # Will be using in next versions
         try:
             repeats = re.search(
                 r'rep:.+', message.text).group().split('rep:')[1]
         except AttributeError:
             repeats = 0
         data = {'text': text, 'time': date, 'repeats': repeats,
-                'reply': message.reply_to_message.message_id}
+                'reply': message.reply_to_message.message_id,
+                'chat_id':message.chat.id}
         Controller.create_notify(data)
         return data
     except AttributeError:
@@ -53,7 +56,7 @@ async def send_notify():
         notifies = Controller.get_active()
         if notifies:
             for notify in notifies:
-                await bot.send_message(-1001360537194,
+                await bot.send_message(notify['chat_id'],
                                        text=notify['text'],
                                        reply_to_message_id=notify['reply_id'])
         sleep(10)

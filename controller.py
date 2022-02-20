@@ -14,6 +14,7 @@ class Controller:
             reply_id=data["reply"],
             time=datetime.strptime(data["time"], "%d.%m.%y:%H.%M"),
             repeats=data["repeats"],
+            chat_id=data['chat_id']
         )
         session.add(notify)
         session.commit()
@@ -28,7 +29,8 @@ class Controller:
             if datetime.strftime(i.time, "%d.%m.%y:%H.%M") == datetime.strftime(
                 datetime.utcnow(), "%d.%m.%y:%H.%M"
             ):
-                notifies.append({"text": i.message_text, "reply_id": i.reply_id})
+                notifies.append({"text": i.message_text, "reply_id": i.reply_id,
+                    'chat_id':i.chat_id})
                 print(notifies)
                 session.delete(i)
                 session.commit()
