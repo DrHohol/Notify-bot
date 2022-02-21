@@ -21,7 +21,6 @@ async def command_start_handler(message: types.Message) -> None:
         pass
     else:
         notify_data = await get_data(message)
-        print(notify_data)
         if notify_data:
             await message.reply("Notification was set successfully")
 
@@ -37,12 +36,15 @@ async def command_start_handler(message: types.Message) -> None:
 async def get_data(message):
     """Getting data from message"""
     try:
-        date = re.search(r"[^date:]\d+\.\d+\.\d+:.+", message.text).group().strip()
-        text = re.search(r"text:.+", message.text).group().split("text:")[1].strip()
+        date = re.search(r"[^date:]\d+\.\d+\.\d+:.+",
+                         message.text).group().strip()
+        text = re.search(
+            r"text:.+", message.text).group().split("text:")[1].strip()
         # Not required parameter
         # Will be using in next versions
         try:
-            repeats = re.search(r"rep:.+", message.text).group().split("rep:")[1]
+            repeats = re.search(
+                r"rep:.+", message.text).group().split("rep:")[1]
         except AttributeError:
             repeats = 0
         data = {
@@ -75,6 +77,6 @@ if __name__ == "__main__":
 
     bot_proc = Process(target=dp.run_polling, args=(bot,))
     bot_proc.start()
-    test = Process( target=asyncio.run, args=(send_notify(),))
+    test = Process(target=asyncio.run, args=(send_notify(),))
     test.start()
     # dp.run_polling(bot)

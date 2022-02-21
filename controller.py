@@ -36,9 +36,12 @@ class Controller:
                         "chat_id": i.chat_id,
                     }
                 )
+                # If we have repeats
+                # Bot will decrease it and set
+                # Notify 10 minutes later
                 if i.repeats != 0:
                     i.repeats -= 1
-                    i.time = i.time+timedelta(minutes=10)
+                    i.time = i.time + timedelta(minutes=10)
                 else:
                     session.delete(i)
                 session.commit()
