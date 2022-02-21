@@ -60,23 +60,11 @@ async def get_data(message):
         pass
 
 
-async def send_notify():
-    while True:
-        notifies = Controller.get_active()
-        if notifies:
-            for notify in notifies:
-                await bot.send_message(
-                    notify["chat_id"],
-                    text=notify["text"],
-                    reply_to_message_id=notify["reply_id"],
-                )
-        sleep(10)
-
 
 if __name__ == "__main__":
 
-    bot_proc = Process(target=dp.run_polling, args=(bot,))
-    bot_proc.start()
-    test = Process(target=asyncio.run, args=(send_notify(),))
-    test.start()
-    # dp.run_polling(bot)
+    dp.run_polling(bot)
+    #bot_proc = Process(target=dp.run_polling, args=(bot,))
+    #bot_proc.start()
+    #test = Process(target=asyncio.run, args=(send_notify(),))
+    #test.start()

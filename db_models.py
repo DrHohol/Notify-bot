@@ -16,8 +16,6 @@ load_dotenv()
 
 engine = create_engine(os.environ.get("DATABASE_URL"))
 
-Session = sessionmaker(engine)
-session = Session()
 Base = declarative_base()
 
 

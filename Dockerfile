@@ -10,5 +10,5 @@ RUN apt-get update && pip install --upgrade pip && \
 	apt-get -y install libpq-dev gcc && \
 	pip install -r requirements.txt
 
-
-CMD ["python","bot.py"]
+CMD ["chmod","755","starter.sh"]
+CMD ["./starter.sh"]
