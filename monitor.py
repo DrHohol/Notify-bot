@@ -1,7 +1,9 @@
 import asyncio
+from time import sleep
+
 from bot import bot
 from controller import Controller
-from time import sleep
+
 
 async def send_notify():
     while True:
@@ -14,5 +16,6 @@ async def send_notify():
                     reply_to_message_id=notify["reply_id"],
                 )
         sleep(10)
+
 
 asyncio.run(send_notify())

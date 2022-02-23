@@ -1,14 +1,11 @@
 import asyncio
+import os
 import re
-from multiprocessing import Process
-from time import sleep
 
 from aiogram import Bot, Dispatcher, types
-from aiogram.dispatcher.filters import Text
+from dotenv import load_dotenv
 
 from controller import Controller
-from dotenv import load_dotenv
-import os
 
 load_dotenv()
 bot = Bot(token=os.environ.get("TOKEN"))
@@ -60,11 +57,10 @@ async def get_data(message):
         pass
 
 
-
 if __name__ == "__main__":
 
     dp.run_polling(bot)
-    #bot_proc = Process(target=dp.run_polling, args=(bot,))
-    #bot_proc.start()
-    #test = Process(target=asyncio.run, args=(send_notify(),))
-    #test.start()
+    # bot_proc = Process(target=dp.run_polling, args=(bot,))
+    # bot_proc.start()
+    # test = Process(target=asyncio.run, args=(send_notify(),))
+    # test.start()

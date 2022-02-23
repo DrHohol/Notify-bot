@@ -1,16 +1,10 @@
-from sqlalchemy import (
-    Boolean,
-    Column,
-    DateTime,
-    Integer,
-    String,
-    create_engine,
-    BigInteger,
-)
+import os
+
+from dotenv import load_dotenv
+from sqlalchemy import (BigInteger, Boolean, Column, DateTime, Integer, String,
+                        create_engine)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
-import os
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -33,5 +27,5 @@ class Notifies(Base):
         return f"Notify {self.message_text} will be repeated {self.repeats} times"
 
 
-#Base.metadata.drop_all(engine)
+# Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)

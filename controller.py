@@ -1,14 +1,15 @@
-from db_models import Notifies, engine, sessionmaker
 from datetime import datetime, timedelta
 
+from db_models import Notifies, engine, sessionmaker
+
 Session = sessionmaker(bind=engine)
-session = Session()
 
 
 class Controller:
     @staticmethod
     def create_notify(data):
 
+        session = Session()
         notify = Notifies(
             message_text=data["text"],
             reply_id=data["reply"],
@@ -18,9 +19,11 @@ class Controller:
         )
         session.add(notify)
         session.commit()
+        session.close()
 
     @staticmethod
     def get_active():
+        session = Session()
         notifies = []
         notify = session.query(Notifies).all()
         # Little crutch
@@ -45,4 +48,5 @@ class Controller:
                 else:
                     session.delete(i)
                 session.commit()
+        session.close()
         return notifies
